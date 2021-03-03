@@ -3,7 +3,7 @@ const puppeteer = require('puppeteer');
 
 const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 const csvWriter = createCsvWriter({
-    path: 'NEW.csv',
+    path: "Headwear.csv",
     append: true,
     header: [
         { id: 'productId', title: 'Product Id' },
@@ -19,7 +19,8 @@ const csvWriter = createCsvWriter({
     ]
 });
   let doneCount = 0
-  let totalCount = 505
+  let totalCount = Math.ceil(1284/50);
+
   let setIntervalId = setInterval(() => {
     if (doneCount < totalCount) {
         let offset = 0
@@ -33,13 +34,14 @@ const csvWriter = createCsvWriter({
       clearInterval(setIntervalId)
     }
   }, 2000);
+  
 const getMyntraData = async (i,offset) => {
         try {
             let allProducts = [];          
             const browser = await puppeteer.launch({ headless: true });
             const page = await browser.newPage();
             await page.setUserAgent('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.157 Safari/537.36');
-            await page.goto("https://www.myntra.com/web/v2/search/western-wear-dresses-menu?f=Categories%3ADresses&p="+i+"&rows=50&o="+offset);
+            await page.goto("https://www.myntra.com/web/v2/search/women-accessories?f=Categories%3ACaps%2CHat%2CHeadband&plaEnabled=false&p="+i+"&rows=50&o="+offset);
             let pageData = await page.content();
             let trimStart = pageData.indexOf("<pre");
             let trimEnd = pageData.indexOf("</pre>");
