@@ -6,7 +6,7 @@ const getRemainingInList1 = (list1,list2) => {
   list2.map(i => {
     ids[i[uid]] = true;
   });
-  let newList = list1.filter(item => ids[item[uid]]);
+  let newList = list1.filter(item => !ids[item[uid]]);
   return newList;
 }
 
